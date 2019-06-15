@@ -204,6 +204,7 @@ const Tabs = createBottomTabNavigator({
   User:  {
       screen: Logout,
       navigationOptions: () => ({
+        header:null,
           tabBarIcon: ({tintColor}) => (
               <Entypo name="user" size={24} color={tintColor}/>
           )
