@@ -48,7 +48,6 @@ class GitHub extends React.Component {
           userdata={"auth_id": responseJson.id,"username": responseJson.login};
           item=[];
           item.push(userdata);
-          console.log(item);
       await AsyncStorage.setItem('session_data',JSON.stringify(item))
       }
       catch(error){
@@ -61,9 +60,10 @@ class GitHub extends React.Component {
   _getToken = async () => {
       try {
       const auth_token = await AsyncStorage.getItem('session_data');
-      console.log("Get Token function",auth_token);
+      console.log("Get Token function from APP.js",auth_token);
       this.setState({id: JSON.parse(auth_token)[0].auth_id,name:JSON.parse(auth_token)[0].username});
-      this.props.navigation.navigate(auth_token? 'App':'Auth');
+      console.log(this.state.name);
+      this.props.navigation.navigate(auth_token? 'App':'Auth',{username: "asas"});
       } catch (error) {
           console.log("Something went wrong while getting token");
       }
@@ -87,7 +87,7 @@ class GitHub extends React.Component {
                   {   
                       this._storeToken(responseJson);
                       this.setState({isLoading: false});
-                      this.props.navigation.navigate('App');
+                      this.props.navigation.navigate('App',{username: "pass"});
                   
                   }
                   else{
