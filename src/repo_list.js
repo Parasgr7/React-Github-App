@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, AsyncStorage,ScrollView } from 'react-native';
+import {Text, View, AsyncStorage,ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../assets/stylesheets/repo_list_css';
 import GLOBALS from '../src/globals';
 
@@ -14,8 +14,7 @@ class RepoList extends React.Component {
     constructor(props) {
 
         super(props);
-        const item = this.props.username;
-        console.log(item);
+      
 
         this.state = {
 
@@ -27,29 +26,18 @@ class RepoList extends React.Component {
     }
  
     componentWillMount(){
-     
       this.fetchRepos();
   }
 
+commits(item)
+{
+    this.props.navigation.navigate('ThirdPage',{param:item});
+}
 
-//   _getToken = async () => {
-//     try {
-//     const auth_token = await AsyncStorage.getItem('session_data').then(user => {
-//       console.log('user: ', user)
-//       this.setState({name: auth_token[0].username});
-//     });
-
-//     console.log("Get Token function",auth_token);
-//     this.setState({name: auth_token[0].username})
-//     } catch (error) {
-//         console.log("Something went wrong while getting token");
-//     } 
-// }
 
 display_list(list)
     {   const that=this;
         return list.map(function(item, i){
-          console.log(item)
             return(
                   <View style={styles.SubmitButtonStyle1} key={i} >
                       <View >
@@ -63,24 +51,12 @@ display_list(list)
                           <Text style={styles.TextStyle2Bold}>Created At : </Text>
                           <Text style={styles.TextStyle2}>{item.created_at.split('T')[0]}</Text>
                       </Text>
-                      {/* <Text style={{marginLeft:10,marginBottom:5}} >
-                          <Text style={styles.TextStyle2Bold}>City : </Text>
-                          <Text style={styles.TextStyle2}>{item.house.full_address.split(',')[1]}</Text>
-                      </Text>
-                      <Text style={{marginLeft:10,marginBottom:5}} >
-                          <Text style={styles.TextStyle2Bold}>Due Date : </Text>
-                          <Text style={styles.TextStyle2}>{item.due}</Text>
-                      </Text>
-
-                        {that.note_display(item)}
-                      <View style={{paddingRight:10}}>
-                          <Text style={styles.TextStyle3}>{item.status}</Text>
-                      </View>
+                
                       <View style={{flexDirection: 'row', flex:1, justifyContent: 'flex-end'}}>
-                      <TouchableOpacity style={styles.Check_inButtonStyle} onPress={()=>that.WorkOrderFunction(item)  } >
-                          <Text style={styles.TextStyle4}>Check-In</Text>
+                      <TouchableOpacity style={styles.Check_inButtonStyle} onPress={()=>that.commits(item)  } >
+                          <Text style={styles.TextStyle4}>Check Commits</Text>
                       </TouchableOpacity>
-                      </View> */}
+                      </View> 
                   </View>  
             );
           });

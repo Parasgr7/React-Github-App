@@ -9,7 +9,7 @@ import Contact from './src/contact';
 import Logout from './src/logout';
 import AllCommit from './src/commits';
 import GLOBALS from './src/globals';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons,FontAwesome } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -172,7 +172,7 @@ const Tabs = createBottomTabNavigator({
       navigationOptions: () => ({
 
           tabBarIcon: ({tintColor}) => (
-              <Octicons name="tasklist" size={24} color={tintColor}/>
+              <FontAwesome name="search" size={20} color={tintColor}/>
           )
           
       })},
@@ -181,18 +181,18 @@ const Tabs = createBottomTabNavigator({
       navigationOptions: () => ({
          
           tabBarIcon: ({tintColor}) => (
-              <AntDesign name="calendar" size={24} color={tintColor}/>
+              <Entypo name="list" size={24} color={tintColor}/>
           )
           
       })},
-  Commits:  {
-      screen: AllCommit,
-      navigationOptions: () => ({
-          tabBarIcon: ({tintColor}) => (
-              <MaterialCommunityIcons name="map-marker-radius" size={24} color={tintColor}/>
-          )
+  // Commits:  {
+  //     screen: AllCommit,
+  //     navigationOptions: () => ({
+  //         tabBarIcon: ({tintColor}) => (
+  //             <MaterialCommunityIcons name="map-marker-radius" size={24} color={tintColor}/>
+  //         )
           
-      })},
+  //     })},
   Contact:  {
       screen: Contact,
       navigationOptions: () => ({

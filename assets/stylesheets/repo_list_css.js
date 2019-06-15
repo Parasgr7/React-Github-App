@@ -111,9 +111,8 @@ export default StyleSheet.create({
         borderRadius:10,
     },
     Check_inButtonStyle: {
-        flex:0.5,
+        flex:0.4,
         justifyContent: "center",
-        // width:70,
         height:35,
         marginTop:0,
         marginLeft:0,
