@@ -10,6 +10,7 @@ npm i expo-cli
 npm install
 expo start
 ```
+![alt text](https://bitbucket.org/car-wash-web/reactdemo/src/master/assets/images/Paras.png)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
