@@ -10,7 +10,7 @@ npm i expo-cli
 npm install
 expo start
 ```
-![demo](assests/images/Paras.png)
+![demo](https://octodex.github.com/images/yaktocat.png)
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
