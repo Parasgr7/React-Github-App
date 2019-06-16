@@ -162,8 +162,14 @@ export default StyleSheet.create({
         marginTop: 10,
     },
     WorkOrderTextStyle1: {
+        fontSize: 20,
+        color: "#023d77",
+        textAlign: 'center',
+        margin: 10,
+    },
+    WorkOrderTextStyle3: {
         fontSize: 18,
-        color: "white",
+        color: "#000000",
         textAlign: 'center',
         margin: 10,
     },
@@ -172,8 +178,17 @@ export default StyleSheet.create({
         paddingTop: 10
     },
     SubmitButtonStyle: {
+        width:70,
+        marginTop:10,
+        padding:10,
+        marginLeft:130,
+        marginRight:30,
+        backgroundColor:'#00BCD4',
+        borderRadius:10,
+      },
+      SubmitButtonStyle2: {
  
-        marginTop:20,
+        marginTop:40,
         paddingTop:15,
         paddingBottom:15,
         marginLeft:30,

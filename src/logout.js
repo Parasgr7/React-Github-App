@@ -47,7 +47,6 @@ _signOutAsync = async () => {
 };
 
   render() {
-    console.log(this.state.email)
     return (
       <View style={{flex:1}}>
                 <ImageBackground source={require('../assets/images/login.jpg')} style={styles.backgroundImage}>
@@ -81,7 +80,7 @@ _signOutAsync = async () => {
                     </Text>
                         
                 
-                    <TouchableOpacity style={styles.SubmitButtonStyle} activeOpacity = { .5 } onPress={ this._signOutAsync }>
+                    <TouchableOpacity style={styles.SubmitButtonStyle2} activeOpacity = { .5 } onPress={ this._signOutAsync }>
                                 <Text style={styles.TextStyle}> Logout </Text>
                     </TouchableOpacity>
                 </ImageBackground>

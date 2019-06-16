@@ -9,7 +9,7 @@ import Contact from './src/contact';
 import Logout from './src/logout';
 import AllCommit from './src/commits';
 import GLOBALS from './src/globals';
-import { Ionicons,FontAwesome } from '@expo/vector-icons';
+import { Ionicons,FontAwesome,MaterialIcons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -201,14 +201,6 @@ const Tabs = createBottomTabNavigator({
           
       })},
 
-  // Contact:  {
-  //     screen: Contact,
-  //     navigationOptions: () => ({
-  //         tabBarIcon: ({tintColor}) => (
-  //             <Ionicons name="ios-call" size={24} color={tintColor}/>
-  //         )   
-  //     })
-  // },
   User:  {
       screen: Logout,
       navigationOptions: () => ({
@@ -218,7 +210,16 @@ const Tabs = createBottomTabNavigator({
           )
           
       })
-  } 
+  },
+  
+  Contact:  {
+    screen: Contact,
+    navigationOptions: () => ({
+        tabBarIcon: ({tintColor}) => (
+            <MaterialIcons name="developer-mode" size={24} color={tintColor}/>
+        )   
+    })
+}, 
 },{
   tabBarOptions: {
       showLabel: false,
@@ -252,12 +253,7 @@ const AppStack = createStackNavigator({
                       fontWeight: 'bold',
                     },
                     title: 'AdaKerja',
-                    // headerBackground: (
-                    //   <Image
-                    //     style={{width: 150,height: 30, flex:1,alignSelf: 'center', marginLeft:8}}
-                    //     source= {require('./assets/images/git.png')}
-                    //   />
-                    // ),
+       
                   },
                 }
               
