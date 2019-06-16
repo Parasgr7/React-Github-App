@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View,Image, AsyncStorage, ScrollView, TouchableOpacity } from 'react-native';
+import {Text, View,Image, AsyncStorage, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import styles from '../assets/stylesheets/commit_css';
 import GLOBALS from '../src/globals';
 
@@ -36,20 +36,32 @@ class AllCommit extends React.Component {
       this.fetchCommits();
   }
   fetchCommits = async() =>
-  {
+  { 
+    console.log(this.state.commit);
+    
+    
     const auth_token = await AsyncStorage.getItem('session_data');
     this.setState({name: JSON.parse(auth_token)[0].username});
+    if(this.state.commit=="react-native")
+    {
+      this.setState({name: 'facebook'})
+    }
+    
+    console.log(this.state.name);
 
-    fetch(GLOBALS.FETCH_COMMITS+this.state.name+"/"+this.state.commit.name+"/commits", {
+    
+    fetch(GLOBALS.FETCH_COMMITS+this.state.name+"/"+this.state.commit+"/commits", {
       method: 'GET',
       }).then((response) => response.json())
           .then((responseJson) => {
-              if(responseJson)
+            console.log("fetch COMMIT",responseJson);
+              if(responseJson.message!="Not Found")
               {    
                  this.setState({commit_data: responseJson});
               }
-              else{
+              else {
                   Alert.alert("No Commit History");
+                  this.props.navigation.goBack();
               }
 
           }).catch((error) => {
@@ -62,6 +74,36 @@ class AllCommit extends React.Component {
   display_list(list)
     {   const that=this;
         return list.map(function(item, i){
+          if(item.committer==null)
+          {
+            return(
+              <View style={styles.SubmitButtonStyle1} key={i} >
+              <View style={{flex: 0.3}}>
+                  <Image
+                    style={styles.image}
+                    source= {{uri: "https://avatars3.githubusercontent.com/u/30603340?v=4"}}
+                  />
+              </View>
+              <View style={{flex: 0.7, marginLeft: 18}}>
+                    <Text style={{marginLeft:10,marginBottom:5}}  >
+                    <Text style={styles.TextStyle2Bold}>UserName : </Text>
+                        <Text style={styles.TextStyle2}>None</Text>
+                    </Text>
+                    
+                    <Text style={{marginLeft:10,marginBottom:5}} >
+                        <Text style={styles.TextStyle2Bold}>Message : </Text>
+                        <Text style={styles.TextStyle2}>{item.commit.message}</Text>
+                    </Text>
+                    <Text style={{marginLeft:10,marginBottom:5}} >
+                        <Text style={styles.TextStyle2Bold}>Commit Date : </Text>
+                        <Text style={styles.TextStyle2}>{item.commit.committer.date.split('T')[0]}</Text>
+                    </Text>
+                </View>
+                  
+              </View>  
+        );
+          }
+          else{
             return(
                   <View style={styles.SubmitButtonStyle1} key={i} >
                   <View style={{flex: 0.3}}>
@@ -88,6 +130,7 @@ class AllCommit extends React.Component {
                       
                   </View>  
             );
+            }
           });
     }
 

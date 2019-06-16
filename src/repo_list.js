@@ -29,9 +29,9 @@ class RepoList extends React.Component {
       this.fetchRepos();
   }
 
-commits(item)
+commits(reponame)
 {
-    this.props.navigation.navigate('ThirdPage',{param:item});
+    this.props.navigation.navigate('ThirdPage',{param:reponame});
 }
 
 
@@ -53,7 +53,7 @@ display_list(list)
                       </Text>
                 
                       <View style={{flexDirection: 'row', flex:1, justifyContent: 'flex-end'}}>
-                      <TouchableOpacity style={styles.Check_inButtonStyle} onPress={()=>that.commits(item)  } >
+                      <TouchableOpacity style={styles.Check_inButtonStyle} onPress={()=>that.commits(item.name)  } >
                           <Text style={styles.TextStyle4}>Check Commits</Text>
                       </TouchableOpacity>
                       </View> 
