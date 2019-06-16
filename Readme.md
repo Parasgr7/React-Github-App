@@ -6,6 +6,7 @@ AdaKerja is a hybrid app for dealing with github repos and searching for commits
 ```bash
 git clone https://car-wash-web@bitbucket.org/car-wash-web/reactdemo.git
 cd reactdemo
+npm i expo-cli
 npm install
 expo start
 ```
