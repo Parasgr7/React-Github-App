@@ -138,10 +138,10 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     logoImagedesign: {
-        marginTop: 80,
-        width: 150,
-        height:150,
-        resizeMode: 'contain'
+        marginTop: 50,
+        width: 180,
+        height:180,
+        borderRadius: 180/2
     },
     inputStyle: {
         flex: 1,
@@ -150,8 +150,8 @@ export default StyleSheet.create({
         margin: 15
     },
     WorkOrderTextStyle2: {
-        fontSize: 20,
-        color: "white",
+        fontSize: 15,
+        color: "#023d77",
         textAlign: 'center',
         marginTop: 14,
     },
@@ -159,7 +159,7 @@ export default StyleSheet.create({
         fontSize: 16,
         color: "black",
         textAlign: 'center',
-        marginTop: 14,
+        marginTop: 10,
     },
     WorkOrderTextStyle1: {
         fontSize: 18,
@@ -173,7 +173,7 @@ export default StyleSheet.create({
     },
     SubmitButtonStyle: {
  
-        marginTop:40,
+        marginTop:20,
         paddingTop:15,
         paddingBottom:15,
         marginLeft:30,

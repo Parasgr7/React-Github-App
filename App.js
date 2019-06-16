@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Alert, Text, Button, AsyncStorage, TextInput, ScrollView, Keyboard, TouchableWithoutFeedback,Image, ImageBackground, Dimensions,ActivityIndicator,KeyboardAvoidingView, TouchableOpacity} from 'react-native';
+import { View, Alert, Text, Button, AsyncStorage, TextInput,StyleSheet, ScrollView, Keyboard, TouchableWithoutFeedback,Image, ImageBackground, Dimensions,ActivityIndicator,KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import {Form, Item, Input} from 'native-base';
 import styles from './assets/stylesheets/app_css';
 import { createBottomTabNavigator,createSwitchNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
@@ -45,7 +45,19 @@ class GitHub extends React.Component {
 
     _storeToken = async responseJson => {
       try{
-          userdata={"auth_id": responseJson.id,"username": responseJson.login};
+          userdata={  "auth_id": responseJson.id,
+                      "pass": this.state.UserPassword,
+                      "username": responseJson.login,
+                      "url": responseJson.avatar_url,
+                      "location": responseJson.location,
+                      "bio": responseJson.bio,
+                      "email": responseJson.email,
+                      "created_at": responseJson.created_at,
+                      "public_repos": responseJson.public_repos,
+                      "followers": responseJson.followers,
+                      "following": responseJson.following
+
+                    };
           item=[];
           item.push(userdata);
       await AsyncStorage.setItem('session_data',JSON.stringify(item))
@@ -61,16 +73,18 @@ class GitHub extends React.Component {
       try {
       const auth_token = await AsyncStorage.getItem('session_data');
       console.log("Get Token function from APP.js",auth_token);
-      this.setState({id: JSON.parse(auth_token)[0].auth_id,name:JSON.parse(auth_token)[0].username});
+      this.setState({ id: JSON.parse(auth_token)[0].auth_id,
+                      name:JSON.parse(auth_token)[0].username,
+                    });
       console.log(this.state.name);
-      this.props.navigation.navigate(auth_token? 'App':'Auth',{username: "asas"});
+      this.props.navigation.navigate(auth_token? 'App':'Auth');
       } catch (error) {
           console.log("Something went wrong while getting token");
       }
   }
 
     UserLoginFunction = () =>{
-
+      this.setState({isLoading: true});
       UserName   = this.state.UserName ;
       UserPassword  = this.state.UserPassword ;
 
@@ -87,7 +101,7 @@ class GitHub extends React.Component {
                   {   
                       this._storeToken(responseJson);
                       this.setState({isLoading: false});
-                      this.props.navigation.navigate('App',{username: "pass"});
+                      this.props.navigation.navigate('App');
                   
                   }
                   else{
@@ -106,6 +120,7 @@ class GitHub extends React.Component {
 
     _maybeRenderUploadingOverlay = () => {
       if (this.state.isLoading) {
+        console.log('here');
           return (
               <View
                   style={ styles.maybeRenderUploading}>
@@ -185,26 +200,19 @@ const Tabs = createBottomTabNavigator({
           )
           
       })},
-  // Commits:  {
-  //     screen: AllCommit,
+
+  // Contact:  {
+  //     screen: Contact,
   //     navigationOptions: () => ({
   //         tabBarIcon: ({tintColor}) => (
-  //             <MaterialCommunityIcons name="map-marker-radius" size={24} color={tintColor}/>
-  //         )
-          
-  //     })},
-  Contact:  {
-      screen: Contact,
-      navigationOptions: () => ({
-          tabBarIcon: ({tintColor}) => (
-              <Ionicons name="ios-call" size={24} color={tintColor}/>
-          )   
-      })
-  },
+  //             <Ionicons name="ios-call" size={24} color={tintColor}/>
+  //         )   
+  //     })
+  // },
   User:  {
       screen: Logout,
       navigationOptions: () => ({
-        header:null,
+    
           tabBarIcon: ({tintColor}) => (
               <Entypo name="user" size={24} color={tintColor}/>
           )
@@ -225,14 +233,17 @@ const Tabs = createBottomTabNavigator({
 
 const AppStack = createStackNavigator({ 
               SecondPage: Tabs, 
-              ThirdPage: AllCommit, 
-              navigationOptions: () => ({
-                      
-              }),
+              ThirdPage: {
+                screen: AllCommit,
+              },
+
               LastPage: {
                      screen: Logout,
+                     
               } },{
-                  navigationOptions: {
+                defaultNavigationOptions: {
+       
+                    
                     headerStyle: {
                       backgroundColor: '#007085',
                   },
@@ -240,12 +251,13 @@ const AppStack = createStackNavigator({
                     headerTitleStyle: {
                       fontWeight: 'bold',
                     },
-                    headerBackground: (
-                      <Image
-                        style={{width: 150,height: 100, flex:1,alignSelf: 'center', marginTop:5, marginLeft:8}}
-                        source= {require('./assets/images/github.png')}
-                      />
-                    ),
+                    title: 'AdaKerja',
+                    // headerBackground: (
+                    //   <Image
+                    //     style={{width: 150,height: 30, flex:1,alignSelf: 'center', marginLeft:8}}
+                    //     source= {require('./assets/images/git.png')}
+                    //   />
+                    // ),
                   },
                 }
               

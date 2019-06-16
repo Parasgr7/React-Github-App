@@ -1,10 +1,13 @@
 import React from 'react';
-import {Text, View,Image, AsyncStorage, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import {Text, View,Image, AsyncStorage, ScrollView, TouchableOpacity,RefreshControl, Alert } from 'react-native';
 import styles from '../assets/stylesheets/commit_css';
 import GLOBALS from '../src/globals';
 
 class AllCommit extends React.Component {
 
+  static navigationOptions = {
+      title: ''
+}
     constructor(props) {
 
         super(props);
@@ -15,6 +18,7 @@ class AllCommit extends React.Component {
             UserName: '',
             UserPassword: '',
             commit : commit,
+            refreshing: false,
             commit_data:[{
               commit: {
                 committer: {
@@ -35,10 +39,15 @@ class AllCommit extends React.Component {
     componentWillMount(){
       this.fetchCommits();
   }
+
+  _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.fetchCommits();
+    
+  }
+
   fetchCommits = async() =>
   { 
-    console.log(this.state.commit);
-    
     
     const auth_token = await AsyncStorage.getItem('session_data');
     this.setState({name: JSON.parse(auth_token)[0].username});
@@ -58,6 +67,7 @@ class AllCommit extends React.Component {
               if(responseJson.message!="Not Found")
               {    
                  this.setState({commit_data: responseJson});
+                 this.setState({refreshing: false});
               }
               else {
                   Alert.alert("No Commit History");
@@ -139,8 +149,16 @@ class AllCommit extends React.Component {
     return (
       <View style={styles.container}>
           
-           <ScrollView >
+           <ScrollView
+           refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+            />
+          } >
+          
            <Text style={styles.TextStyle1}> Commit History:</Text>
+           <Text style={styles.TextStyle3}> {this.state.commit}</Text>
             {this.display_list(this.state.commit_data)}
            </ScrollView>
         

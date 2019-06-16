@@ -39,11 +39,11 @@ componentWillMount(){
   render() {
     return (
       <View style={styles.container}>
-        <Text>Enter Repository Name </Text>
-        <Input
+        <Text style={styles.TextStyle}>Search Repository Name </Text>
+        <Input style={{margin:20}}
         placeholder='facebook/react-native'
         onChangeText = {text=> this.reposearch(text)}/>
-        <Button
+        <Button style={styles.button}
           title="Search"
           onPress={this.submit}/>
         

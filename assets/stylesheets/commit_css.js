@@ -177,12 +177,12 @@ export default StyleSheet.create({
         marginBottom:5,
     },
     TextStyle3:{
-        textAlign: 'right',
-        color:'#fff',
-        fontWeight:'bold',
-        fontSize:16,
-        marginRight:0,
-        margin:10
+        marginTop:10,
+        marginLeft:30,
+        marginRight:30,
+        color:'black',
+        fontSize:18,
+        fontWeight:'bold'
 
     },
     TextStyle5:{

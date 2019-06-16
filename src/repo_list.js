@@ -1,16 +1,13 @@
 import React from 'react';
-import {Text, View, AsyncStorage,ScrollView, TouchableOpacity } from 'react-native';
+import {Text, View, AsyncStorage,ScrollView, TouchableOpacity, Alert,RefreshControl } from 'react-native';
 import styles from '../assets/stylesheets/repo_list_css';
 import GLOBALS from '../src/globals';
 
+const base64 = require('base-64');
 
 class RepoList extends React.Component {
-  static navigationOptions =
-        {
-            header:null
-        };
-       
 
+       
     constructor(props) {
 
         super(props);
@@ -20,8 +17,8 @@ class RepoList extends React.Component {
 
             UserName: '',
             UserPassword: '',
-            isLoading: false,
-            data:[{name:'Test',description:'Good test',created_at: "2018-05-02T20:03:03Z"}]
+            refreshing: false,
+            data:[{name:'Test',description:'Good test',created_at: "2018-05-02T20:03:03Z",language:''}]
         }
     }
  
@@ -34,6 +31,60 @@ commits(reponame)
     this.props.navigation.navigate('ThirdPage',{param:reponame});
 }
 
+_onRefresh = () => {
+    this.setState({refreshing: true});
+    console.log('Yes m loding');
+    this.fetchRepos();
+    console.log(this.state.refreshing);
+    
+  }
+
+deleteApi(reponame){
+
+    UserName   = this.state.name ;
+    UserPassword  = this.state.password ;
+    var headers = new Headers();
+    headers.append("Authorization", "Basic " + base64.encode(UserName+":"+UserPassword));
+    
+    console.log("Password",GLOBALS.FETCH_COMMITS+UserName+"/"+reponame);
+
+    fetch(GLOBALS.FETCH_COMMITS+UserName+"/"+reponame, {
+        method: 'DELETE',
+        headers: headers,
+        }).then((response) => response)
+            .then((responseJson) => {
+                if(responseJson.ok==true)
+                {   
+                    
+                    console.log("Done");
+                
+                }
+                else{
+                    Alert.alert("Error while deleting");
+                }
+
+            }).catch((error) => {
+            console.log(error);
+            Alert.alert("Server Unavailable");
+
+        });
+    
+}
+
+deleteRepo=(reponame)=>{
+
+    Alert.alert(
+        'Delete Repository',
+        'Are you sure',
+        [
+          {text: 'NO', onPress: () => console.warn('NO Pressed'), style: 'cancel'},
+          {text: 'YES', onPress: () => this.deleteApi(reponame)},
+        ]
+      );
+      
+      this.fetchRepos();
+
+}
 
 display_list(list)
     {   const that=this;
@@ -45,18 +96,28 @@ display_list(list)
                       </View>
                       <Text style={{marginLeft:10,marginBottom:5}} >
                           <Text style={styles.TextStyle2Bold}>Description : </Text>
-                          <Text style={styles.TextStyle2}>{item.description}</Text>
+                          <Text style={styles.TextStyle2}>{item.description?item.description:"N/A"}</Text>
+                      </Text>
+                      <Text style={{marginLeft:10,marginBottom:5}} >
+                          <Text style={styles.TextStyle2Bold}>Language : </Text>
+                          <Text style={styles.TextStyle2}>{item.language?item.language:"N/A"}</Text>
                       </Text>
                       <Text style={{marginLeft:10,marginBottom:5}} >
                           <Text style={styles.TextStyle2Bold}>Created At : </Text>
                           <Text style={styles.TextStyle2}>{item.created_at.split('T')[0]}</Text>
                       </Text>
-                
-                      <View style={{flexDirection: 'row', flex:1, justifyContent: 'flex-end'}}>
+                    <View style={{flexDirection:'row',flex:1}}>
+                      <View >
+                      <TouchableOpacity style={styles.Check_inButtonStyle1} onPress={()=>that.deleteRepo(item.name)  } >
+                          <Text style={styles.TextStyle4}>Delete Repo</Text>
+                      </TouchableOpacity>
+                      </View> 
+                      <View style={{justifyContent: 'flex-end'}}>
                       <TouchableOpacity style={styles.Check_inButtonStyle} onPress={()=>that.commits(item.name)  } >
                           <Text style={styles.TextStyle4}>Check Commits</Text>
                       </TouchableOpacity>
                       </View> 
+                      </View>
                   </View>  
             );
           });
@@ -64,15 +125,15 @@ display_list(list)
 
   fetchRepos = async ()=>{
     const auth_token = await AsyncStorage.getItem('session_data');
-    this.setState({name: JSON.parse(auth_token)[0].username});
+    this.setState({name: JSON.parse(auth_token)[0].username,password: JSON.parse(auth_token)[0].pass});
     fetch(GLOBALS.FETCH_URL+this.state.name+"/repos", {
         method: 'GET',
         }).then((response) => response.json())
             .then((responseJson) => {
-                // console.log(responseJson);
                 if(responseJson)
                 {    
                    this.setState({data: responseJson});
+                   this.setState({refreshing: false});
                 }
                 else{
                     Alert.alert("No Repo exists");
@@ -81,7 +142,6 @@ display_list(list)
             }).catch((error) => {
             console.log(error);
             Alert.alert("Server Unavailable");
-            this.setState({isLoading: false});
 
         });
   }
@@ -90,7 +150,12 @@ display_list(list)
     return (
       <View style={styles.container}>
           
-           <ScrollView >
+           <ScrollView 
+           refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
+           />}>
            <Text style={styles.TextStyle1}> All Repositories:</Text>
             {this.display_list(this.state.data)}
            </ScrollView>
