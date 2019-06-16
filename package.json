@@ -13,7 +13,7 @@
     "expo": "^31.0.2",
     "native-base": "2.8.1",
     "react": "16.6.1",
-    "react-native": "0.57.7",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
     "react-native-phone-call": "^1.0.9",
     "react-navigation": "^3.11.0"

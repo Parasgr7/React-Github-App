@@ -17,6 +17,19 @@ expo start
 ![user](https://firebasestorage.googleapis.com/v0/b/wash-my-car7.appspot.com/o/5.png?alt=media&token=fd47acb5-35c9-4f9f-be99-d422f86152b0)
 ![developer](https://firebasestorage.googleapis.com/v0/b/wash-my-car7.appspot.com/o/4.png?alt=media&token=689567d8-9600-4650-866c-297ff82d9ca7)
 
+## Features
+```bash
+1. Login Screen
+2. Search Screen
+3. All Repository Screen (Delete & View Commits feature)
+4. All Commits Screen
+5. User Profile Screen
+6. Developer Profile Screen
+7. Added Referesh & Calling Feature 
+```
+
+## Android Apk
+https://exp-shell-app-assets.s3.us-west-1.amazonaws.com/android/%40paras7/ada_kerja-60b0c98e6c974d7f9f79be896c28c525-signed.apk
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

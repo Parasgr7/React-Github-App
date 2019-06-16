@@ -5,23 +5,25 @@
     "slug": "ada_kerja",
     "privacy": "public",
     "sdkVersion": "31.0.0",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.tech.ada_kerja"
+    },
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/github.png",
+    "icon": "./assets/images/gits.png",
     "splash": {
-      "image": "./assets/images/login.jpg",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    }
+    "assetBundlePatterns": [ "assets/images/*", "assets/templates/*" ]
+
   }
 }
