@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "base-64": "^0.1.0",
-    "expo": "^31.0.2",
+    "expo": "^46.0.14",
     "native-base": "2.8.1",
     "react": "16.6.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
